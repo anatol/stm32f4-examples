@@ -1,0 +1,4 @@
+If you want to see 'sources' disassembled you need to compile with '-O0 -g' and then call objdump with '-S'.
+
+
+To flash firmware to the device run 'dfu-util --alt 0 --download app.dfu'

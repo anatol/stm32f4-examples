@@ -1,0 +1,5 @@
+app.asm
+app.bin
+app.elf
+app.dfu
+*.o
