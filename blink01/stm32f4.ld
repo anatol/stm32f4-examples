@@ -33,5 +33,3 @@ SECTIONS
     __bss_end__ = .;
   } > ram
 }
-
-ENTRY(vector_table)

@@ -4,7 +4,7 @@ CFLAGS = -std=c11 -Wall -Werror -O0 -g -nostdlib -nostartfiles -ffreestanding -m
 %.o : %.c
 	$(ARMGNU)-gcc $(CFLAGS) -mcpu=cortex-m4 -mthumb -c $< -o $@
 
-app.bin app.dfu : app.o
+app.bin app.dfu : app.o startup.o
 	$(ARMGNU)-ld -o app.elf -T stm32f4.ld $^
 	$(ARMGNU)-objcopy -O binary app.elf app.bin
 	$(ARMGNU)-objdump -D -marm --disassembler-options=force-thumb --target binary app.bin > app.asm
