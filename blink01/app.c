@@ -47,7 +47,7 @@ void crt0(void) {
 
 #define MEM(address) (*(volatile uint32_t *)(address))
 
-void inline wait(int period) {
+void wait(int period) {
   for (int i = 0; i < 50000 * period; i++) {
     __asm("nop");
   }

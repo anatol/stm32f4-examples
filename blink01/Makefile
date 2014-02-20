@@ -1,5 +1,5 @@
 ARMGNU = arm-none-eabi
-CFLAGS = -std=c11 -Wall -Werror -O2 -nostdlib -nostartfiles -ffreestanding -mlittle-endian -mfloat-abi=hard -mfpu=fpv4-sp-d16
+CFLAGS = -std=c11 -Wall -Werror -O0 -g -nostdlib -nostartfiles -ffreestanding -mlittle-endian -mfloat-abi=hard -mfpu=fpv4-sp-d16
 
 %.o : %.c
 	$(ARMGNU)-gcc $(CFLAGS) -mcpu=cortex-m4 -mthumb -c $< -o $@
