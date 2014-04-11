@@ -1,0 +1,32 @@
+armgnu = arm-none-eabi
+cflags = -std=c11 -Wall -Werror -O0 -g -nostdlib -nostartfiles -ffreestanding -mlittle-endian -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mcpu=cortex-m4 -mthumb
+
+rule cc
+  command = ${armgnu}-gcc $cflags -c $in -o $out
+  description = CC $out
+
+rule link
+  command = ${armgnu}-ld -o $out -T $script $in
+  description = LINK $out
+
+rule objcopy
+  command = ${armgnu}-objcopy -O binary $in $out
+  description = OBJCOPY $out
+
+rule objdump
+  command = ${armgnu}-objdump -D -marm --disassembler-options=force-thumb --target binary $in > $out
+  description = OBJDUMP $out
+
+rule dfu
+  command = dfu-convert -b 0x08000000:$in $out
+  description = DFU $out
+
+build app.o: cc app.c
+build startup.o: cc startup.c
+
+build app.elf: link app.o startup.o
+  script = stm32f4.ld
+
+build app.bin: objcopy app.elf
+build app.asm: objdump app.bin
+build app.dfu: dfu app.bin
