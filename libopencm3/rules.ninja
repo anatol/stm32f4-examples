@@ -1,0 +1,24 @@
+armgnu = arm-none-eabi
+
+cflags = -DSTM32F4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mthumb -mcpu=cortex-m4 -Wextra -Wshadow -Wimplicit-function-declaration -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes -fno-common -ffunction-sections -fdata-sections -Wall -Werror -std=c11 -nostdlib -nostartfiles -ffreestanding
+ldflags = -L /usr/arm-none-eabi/lib/ -T ../stm32f4.ld -lopencm3_stm32f4 --gc-sections
+
+rule cc
+  command = ${armgnu}-gcc $cflags -c $in -o $out
+  description = CC $out
+
+rule link
+  command = ${armgnu}-ld $in $ldflags -o $out
+  description = LINK $out
+
+rule objcopy
+  command = ${armgnu}-objcopy -O binary $in $out
+  description = OBJCOPY $out
+
+rule objdump
+  command = ${armgnu}-objdump -D -marm --disassembler-options=force-thumb --target binary $in > $out
+  description = OBJDUMP $out
+
+rule dfu
+  command = dfu-convert -b 0x08000000:$in $out
+  description = DFU $out

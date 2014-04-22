@@ -1,0 +1,7 @@
+include ../rules.ninja
+
+build miniblink.o: cc miniblink.c
+build miniblink.elf: link miniblink.o
+build miniblink.bin: objcopy miniblink.elf
+build miniblink.asm: objdump miniblink.bin
+build miniblink.dfu: dfu miniblink.bin
