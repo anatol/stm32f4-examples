@@ -1,0 +1,7 @@
+include ../rules.ninja
+
+build usart.o: cc usart.c
+build usart.elf: link usart.o
+build usart.bin: objcopy usart.elf
+build usart.asm: objdump usart.bin
+build usart.dfu: dfu usart.bin
