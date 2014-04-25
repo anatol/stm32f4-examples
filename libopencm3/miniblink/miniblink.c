@@ -34,7 +34,7 @@ static void gpio_setup(void)
 	// GPIOD_CRH = (GPIO_CNF_OUTPUT_PUSHPULL << (((8 - 8) * 4) + 2));
 	// GPIOD_CRH |= (GPIO_MODE_OUTPUT_2_MHZ << ((8 - 8) * 4));
 	/* Using API functions: */
-	gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO12);
+	gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO12 | GPIO13);
 }
 
 int main(void)
@@ -66,6 +66,10 @@ int main(void)
 		for (i = 0; i < 1000000; i++) {	/* Wait a bit. */
 			__asm__("nop");
 		}
+                gpio_toggle(GPIOD, GPIO13);
+                for (i = 0; i < 30000; i++) {
+                        __asm__("nop");
+                }
 	}
 
 	return 0;
