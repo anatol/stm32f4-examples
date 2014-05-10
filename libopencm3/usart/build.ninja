@@ -11,3 +11,9 @@ build echo.elf: link echo.o
 build echo.bin: objcopy echo.elf
 build echo.asm: objdump echo.bin
 build echo.dfu: dfu echo.bin
+
+build echo_irq.o: cc echo_irq.c
+build echo_irq.elf: link echo_irq.o
+build echo_irq.bin: objcopy echo_irq.elf
+build echo_irq.asm: objdump echo_irq.bin
+build echo_irq.dfu: dfu echo_irq.bin
